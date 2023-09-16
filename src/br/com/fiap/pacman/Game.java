@@ -17,8 +17,8 @@ public class Game extends JFrame implements KeyListener {
 	private Ghost ghost2 = new Ghost(500,0,0);
 	private Ghost ghost3 = new Ghost(0,500,0);
 	private Ghost ghost4 = new Ghost(500,500,0);
-	private Bomb bomb = new Bomb(100,100);
-	private Booster booster = new Booster(400, 400, 10);
+	private Bomb bomb = new Bomb(100,100, true);
+	private Booster booster = new Booster(400, 400, false);
 
 	private JLabel imgPlayer = new JLabel(new ImageIcon("src/images/pacman.png"));
 	private JLabel imgGhost1 = new JLabel(new ImageIcon("src/images/ghost_1.png"));
@@ -29,6 +29,7 @@ public class Game extends JFrame implements KeyListener {
 	private JLabel imgBooster = new JLabel(new ImageIcon("src/images/booster.png"));
 
 	private final int SCREENSIZE = 600;
+
 	private int speed = 50;
 	
 	public static void main(String[] args) {
@@ -86,8 +87,16 @@ public class Game extends JFrame implements KeyListener {
 	}
 
 	private void run() {
+
+
+
 		while (player.getLife() > 0) {
-			//TODO: coloque aqui os métodos de movimentação e colisão 
+			//TODO: coloque aqui os métodos de movimentação e colisão
+			ghost1.moviment();
+			ghost2.moviment();
+			ghost3.moviment();
+			ghost4.moviment();
+
 			
 			try {
 				Thread.sleep(speed);
@@ -95,6 +104,12 @@ public class Game extends JFrame implements KeyListener {
 				e.printStackTrace();
 			}
 			render();
+
+
+			if (booster.getX() == player.getX() && booster.getY() == player.getY()){
+				booster.setVisible(false);
+				System.out.println("passou aqui");
+			}
 			
 		}
 	}
@@ -105,11 +120,14 @@ public class Game extends JFrame implements KeyListener {
 		if (c == '8' || c == 'w') player.setDirection(0);	
 		if (c == '6' || c == 'd') player.setDirection(90);	
 		if (c == '2' || c == 's') player.setDirection(180);	
-		if (c == '4' || c == 'a') player.setDirection(270);	
+		if (c == '4' || c == 'a') player.setDirection(270);
+
+
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
